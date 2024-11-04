@@ -22,6 +22,7 @@ app.post("/query", async (req,res)=>{
     const data = { type : req.body.filter, colour : req.body.colour, set : req.body.set};
     items =  (await (axios.get(API_URL + `?subtypes=${data.type}&set=${data.set}&color=${data.colour}`))).data;
     res.redirect("/");
+    console.log(`Query requested with tags: ${data.set} , ${data.type} , ${data.colour} `);
 });
 
 

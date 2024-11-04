@@ -9,7 +9,7 @@
 <body>
     <h1>Card filters</h1>
     <form action="/query" id="form" class="form" method="POST">
-        <p>card colour</p>
+        <p class="p-title">card colour</p>
         <select name="colour" class="form-select">
             <option value="">Colour</option>
             <option value="red">Red</option>
@@ -18,22 +18,25 @@
             <option value="black">Black</option>
             <option value="green">Green</option>
           </select>
-        <p>Card type</p>
+        <p class="p-title">Card type</p>
         <input name = "filter", class ="input_box">
-        <p>Set tag</p>
+        <p class="p-title">Set tag</p>
         <input name = "set", class ="input_box"> <br>
         <button type="submit" class="form-submit">Go</button>
       </form>
+        <div class="div-container">
     <% if (locals.result){%>
         <% result.cards.forEach(card => { %>
+            <div class="div-box">
             <p> <%= card.name %> </p>
-            <img src=<%= card.imageUrl %>>
+            <img src=<%= card.imageUrl %>>    
+            </div>
         <% }); %>
        
        
     <%}else{  %>
         <p>Please enter a filter value and pick a colour</p>
     <%} %>
-    
+        </div>
 </body>
 </html>
