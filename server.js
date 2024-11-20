@@ -1,5 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
+import axios from "axios";
+
 
 const app = express();
 const PORT = 5000; // Backend runs on port 5000
@@ -17,10 +19,15 @@ const items = [
 
 // Route to get all items
 app.get("/api/items", (req, res) => {
-  res.json(items);
+  res.json(items) ;
 });
+
+
+
+
 
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+

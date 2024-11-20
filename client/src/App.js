@@ -1,6 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+
+
+function getData(){
+  axios.get('https://api.magicthegathering.io/v1/cards', {
+    params: {
+      supertypes: "legendary",
+      types : "creature"
+    }
+  })
+  .then(function (response) {
+    console.log(response.data.cards);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .finally(function () {
+  
+})}
+
+
+
 const App = () => {
   const [items, setItems] = useState([]); // State to store data
 
@@ -24,6 +45,7 @@ const App = () => {
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
+      <button onClick={getData}>CLick me</button>
     </div>
   );
 };
