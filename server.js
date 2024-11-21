@@ -11,15 +11,11 @@ app.use(cors()); // Allow requests from React frontend
 app.use(json()); // Parse JSON request body
 
 // Mock data
-const items = [
-  { id: 1, name: "Item 1" },
-  { id: 2, name: "Item 2" },
-  { id: 3, name: "Item 3" },
-];
+const item =  "Welcome!";
 
 // Route to get all items
-app.get("/api/items", (req, res) => {
-  res.json(items) ;
+app.get("/welcome", (req, res) => {
+  res.send(item) ;
 });
 
 
