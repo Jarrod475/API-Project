@@ -1,15 +1,16 @@
 import React from "react";
 
 
-function card(props){
+function DisplayCard(props){
+    console.log(props);
     return (
     <div>
         <p id="cardName" >{props.name}</p>
-        <img url={props.imgURL}></img>
+        <img src={props.imgURL} />
         <button>add</button>
     </div>);
 }
 
 
 
-export default card;
+export default DisplayCard;

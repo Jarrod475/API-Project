@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 
 
 
-function inputField(props){
+function InputField(props){
     //states!
     const [queryData,setData] =  useState({});
     //this functions creates an object to send to the parent that includes the required query params for the Magic API
@@ -35,4 +35,4 @@ function inputField(props){
 
 
 
-export default inputField;
+export default InputField;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "./components/card.jsx";
 import InputField from  "./components/inputField.jsx";
+import DisplayCard from "./components/card.jsx";
 
 
 
@@ -9,7 +9,7 @@ import InputField from  "./components/inputField.jsx";
 const App = () => {
   //states!
   const [welcomeMSG, setMSG] = useState("loading..."); 
-  const [cardData,setCardData] = useState({});
+  const [cardData,setCardData] = useState([]);
 
   
   async function getData(dataObject){
@@ -18,7 +18,7 @@ const App = () => {
        params: dataObject
      })
      .then(function (response) {
-       setCardData(response.data);
+       setCardData(response.data.cards);
      })
      .catch(function (error) {
        console.log(error);
@@ -53,8 +53,8 @@ const App = () => {
     <div>
       <h1>Item List</h1>
       <p>{welcomeMSG}</p>
-      <Card />
       <InputField onSubmit={getData}/>
+      {cardData.length > 0 ? cardData.map((card,index)=>{return <DisplayCard key={index} name ={card.name} imgURL={card.imageUrl}/>}): <p>loading...</p>}
     </div>
   );
 };
