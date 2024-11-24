@@ -5,6 +5,7 @@ import DisplayCard from "./components/card.jsx";
 
 
 
+
 // le app
 const App = () => {
   //states!
@@ -51,10 +52,12 @@ const App = () => {
 
   return (
     <div>
-      <h1>Item List</h1>
+      <h1>MY CARD DATABASE</h1>
       <p>{welcomeMSG}</p>
       <InputField onSubmit={getData}/>
+      <div class="cardHolder">
       {cardData.length > 0 ? cardData.map((card,index)=>{return <DisplayCard key={index} name ={card.name} imgURL={card.imageUrl}/>}): <p>loading...</p>}
+      </div>
     </div>
   );
 };
