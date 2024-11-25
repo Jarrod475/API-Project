@@ -50,6 +50,19 @@ const App = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/addcard",{burgerking: 40,mcd: 69})// send data to server
+      .then((response) => {
+         setMSG(response.data); // Update welcomeMSG if card is saved
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+
+
   return (
     <div>
       <h1>MY CARD DATABASE</h1>

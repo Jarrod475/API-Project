@@ -7,16 +7,20 @@ body {
 }
 
 .cardHolder{  
-  width: 1000px;
+  position: absolute;
+  right: 0;left: 0;
+  margin-left: 50px;
+  margin-top: 50px;
   gap: 10px ;
   display: grid;
   grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
-  grid-template-rows: auto; 
+  grid-template-rows: 0.25fr ;
+  grid-auto-rows: auto; 
+  align-items: center;
 }
 
-h1{
- 
-}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
