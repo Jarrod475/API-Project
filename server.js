@@ -39,9 +39,6 @@ function writeData(newCard)
   console.log("new card added to database");  
 }
 
-
-
-
 // Mock data
 const item =  "Welcome!";
 
@@ -55,6 +52,7 @@ app.get("/welcome", (req, res) => {
 //route to store new card data
 app.post("/addcard" , (req,res)=>{
   let data =  req;
+  writeData(data.body);
   res.send("card saved succesfully!");
   console.log("recieving data from client:", data.body);
 });
