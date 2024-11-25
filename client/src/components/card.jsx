@@ -2,12 +2,17 @@ import React from "react";
 
 
 function DisplayCard(props){
-    console.log(props);
     return (
     <div>
         <p id="cardName" >{props.name}</p>
-        <img src={props.imgURL} />
-        <button>add</button>
+        <img src={props.imgURL} alt="card" />
+        <button onClick={()=>{props.clickFunc(
+            {
+                id : props.cardid,
+                name : props.name,
+                imgLink : props.imgURL
+            }
+            );}}>add</button>
     </div>);
 }
 

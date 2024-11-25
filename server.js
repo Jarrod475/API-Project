@@ -10,7 +10,6 @@ const PORT = 5000; // Backend runs on port 5000
 // Middleware
 app.use(cors()); // Allow requests from React frontend
 app.use(json()); // Parse JSON request body
-//app.use(bodyParser.urlencoded({ extended: true }));
 
 //---database functions and stuff---
 
@@ -57,7 +56,7 @@ app.get("/welcome", (req, res) => {
 app.post("/addcard" , (req,res)=>{
   let data =  req;
   res.send("card saved succesfully!");
-  console.log(data.body);
+  console.log("recieving data from client:", data.body);
 });
 
 

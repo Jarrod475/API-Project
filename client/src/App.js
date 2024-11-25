@@ -11,8 +11,11 @@ const App = () => {
   //states!
   const [welcomeMSG, setMSG] = useState("loading..."); 
   const [cardData,setCardData] = useState([]);
+  const [storeData, setStoreData] = useState();
+    
+  //functions for components to use
 
-  
+  //gets data from API call
   async function getData(dataObject){
     console.log(dataObject);
       await axios.get('https://api.magicthegathering.io/v1/cards', {
@@ -27,16 +30,14 @@ const App = () => {
      .finally(function () {
      
    })}
-
-   // so this guy only runs if it detects changes in the cardData object! pretty cool...
-   useEffect(() => {
-    if (cardData !== null) { // Avoid logging null on initial render
-        console.log("cardData:", cardData);
-        //tell app to render cards here!
-    }}, [cardData]);
+   //sends card data to server
+  function sendData(dataObject){
+    console.log("adding data to database",dataObject);
+    setStoreData(dataObject);
+  }
 
 
-
+  //--------------------routes----------------------//
 
   // Fetch Welcome msg from the backend server thingy (server.js)...
   useEffect(() => {
@@ -50,16 +51,18 @@ const App = () => {
       });
   }, []);
 
+   // sends data to server for storage!
   useEffect(() => {
+    if (storeData != null){
     axios
-      .post("http://localhost:5000/addcard",{burgerking: 40,mcd: 69})// send data to server
+      .post("http://localhost:5000/addcard",storeData)// send data to server
       .then((response) => {
          setMSG(response.data); // Update welcomeMSG if card is saved
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-      });
-  }, []);
+      });}  
+  }, [storeData]);
 
 
 
@@ -69,7 +72,7 @@ const App = () => {
       <p>{welcomeMSG}</p>
       <InputField onSubmit={getData}/>
       <div class="cardHolder">
-      {cardData.length > 0 ? cardData.map((card,index)=>{return <DisplayCard key={index} name ={card.name} imgURL={card.imageUrl}/>}): <p>loading...</p>}
+      {cardData.length > 0 ? cardData.map((card,index)=>{return <DisplayCard key={index} cardid={card.id} name ={card.name} imgURL={card.imageUrl} clickFunc={sendData}/>}): <p>loading...</p>}
       </div>
     </div>
   );
