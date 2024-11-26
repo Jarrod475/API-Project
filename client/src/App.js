@@ -17,7 +17,7 @@ const App = () => {
 
   //gets data from API call
   async function getData(dataObject){
-    console.log("the data object is :",dataObject);
+    console.log("the data param object is :",dataObject);
       await axios.get('https://api.magicthegathering.io/v1/cards', {
        params: dataObject
      })

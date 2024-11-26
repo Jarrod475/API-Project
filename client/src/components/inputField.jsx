@@ -8,15 +8,18 @@ function InputField(props){
     const [queryData,setData] =  useState({});
     const [colorCount, setColorCount] = useState(0);
     const [colourArray,setColourArray] = useState([]);
+
     //this function creates an object to send to the parent that includes the required query params for the Magic API
     function editData(event) {
-        const { name, value } = event.target;
-    
-        // Update state using the functional form of setState
+        const { name, value } = event.target
+        let newval = value;
+        //changes array to string so that it can be fed into the params in a way the API understands.
+        name === "colors" && (newval = newval.join(", "));
+       
         setData((prevValue) => {
             return {
-                ...prevValue, // Spread the existing state to avoid overwriting other fields
-                [name]: value, // Dynamically update the field based on the input's `name`
+                ...prevValue, // "Spread" (those 3 dots) the existing state to avoid overwriting other fields
+                [name]: newval, // Dynamically update the field based on the inputs `name` !
             };
         });
     }
@@ -33,13 +36,13 @@ function InputField(props){
         
     }
     //these things run when the variables in brackets change!
-    //so this one runs when colourarray changes
+    //so this one runs when colourarray changes // if i dont do it like this this and try to call editdata within another function it just doesnt update or it updates too late.
     useEffect(() => 
     {
         let event = {target : {name : "colors", value : colourArray}}
         editData(event);
     },[colourArray]);
-    //and this one when querydata changes. // if i dont do it like this this and try to call editdata within another function it just doesnt update or it updates too late.
+    //and this one when querydata changes. just displays the current query in the console
     useEffect(() => 
         {
         console.log("querydata is :",queryData);
