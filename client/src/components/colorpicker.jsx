@@ -5,7 +5,7 @@ function ColorPicker(props){
         props.addcolor(
             {
                 value : event.target.value,
-                id    : (props.id - 1),
+                id    : (props.id),
         });
     }
 
