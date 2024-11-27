@@ -39,6 +39,11 @@ function writeData(newCard)
   db.query('INSERT INTO mycards (id,name,link)  VALUES ($1,$2,$3)',[newCard.id,newCard.name,newCard.imgLink]);
   console.log("new card added to database");  
 }
+//delete card with given ID
+function deleteData(id){
+  db.query('DELETE FROM mycards WHERE id=$1',[id]);
+  console.log("card deleted from DB with ID :",id);
+}
 
 // Mock data
 const item =  "Welcome!";
@@ -57,10 +62,16 @@ app.post("/addcard" , (req,res)=>{
   res.send("card saved succesfully!");
   console.log("recieving data from client:", data.body);
 });
-
-app.get("/getcards", async(req,res)=>{
+// Route to get all cards from DB
+app.get("/collection", async(req,res)=>{
   let cards = await readData();
   res.json(cards);
+});
+
+ // Route to delete a card with given ID from DB
+app.delete("/collection", async(req,res)=>{
+  await deleteData(req.query.id);
+  res.send("card succesfully deleted");
 });
 
 // Start the server

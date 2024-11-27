@@ -38,10 +38,27 @@ const App = () => {
     console.log("adding data to database",dataObject);
     setStoreData(dataObject);
   }
+  
+  //delete a card/record from the DB
+  async function deleteData(cardID){
+    await axios.delete('http://localhost:5000/collection', {
+      params: {id : cardID}
+    })
+    .then(function (response) {
+      setMSG(response.data);
+      getCollection();
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .finally(function () {
+     
+  })} 
+  
 
   //gets all the cards from the personal database
   async function getCollection(){
-    await axios.get('http://localhost:5000/getcards')
+    await axios.get('http://localhost:5000/collection')
     .then(function (response) {
       setCardData(response?.data || []); //so the question mark (response?.data) makes it return le false if it doesnt have a .data param...
     })
@@ -94,7 +111,8 @@ const App = () => {
             displayButons={isCollection} 
             name ={card.name} 
             imgURL={card?.imageUrl || card.link} // again using that '?' to make the query return either .imageUrl and if that doesnt exist .link!!! 
-            clickFunc={sendData}/>
+            clickFunc={sendData}
+            deleteFunc={deleteData}/>
           }): <p>loading...</p>}
       </div>
     </div>

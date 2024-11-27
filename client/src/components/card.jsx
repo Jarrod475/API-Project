@@ -13,8 +13,10 @@ function DisplayCard(props){
                 imgLink : props.imgURL
             }
             );}}>add</button> : 
-            //this still aint working (yet!)
-            <button>Delete</button>}
+            <button onClick={()=> {props.deleteFunc(
+                props.cardid
+
+            )}}>Delete</button>}
     </div>);
 }
 
