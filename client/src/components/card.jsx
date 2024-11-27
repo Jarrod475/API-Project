@@ -6,13 +6,15 @@ function DisplayCard(props){
     <div>
         <p id="cardName" >{props.name}</p>
         <img src={props.imgURL} alt="card" />
-        <button onClick={()=>{props.clickFunc(
+        {props.displayButons  !== true ? <button onClick={()=>{props.clickFunc(
             {
                 id : props.cardid,
                 name : props.name,
                 imgLink : props.imgURL
             }
-            );}}>add</button>
+            );}}>add</button> : 
+            //this still aint working (yet!)
+            <button>Delete</button>}
     </div>);
 }
 

@@ -7,6 +7,7 @@ const app = express();
 const PORT = 5000; // Backend runs on port 5000
 
 
+
 // Middleware
 app.use(cors()); // Allow requests from React frontend
 app.use(json()); // Parse JSON request body
@@ -28,7 +29,7 @@ async function readData()
 {
   const data = await db.query("SELECT * FROM mycards");
   let items = data.rows;
-  console.log("card data is :", items);
+  console.log(items);
   return items;
 }
 
@@ -57,7 +58,10 @@ app.post("/addcard" , (req,res)=>{
   console.log("recieving data from client:", data.body);
 });
 
-
+app.get("/getcards", async(req,res)=>{
+  let cards = await readData();
+  res.json(cards);
+});
 
 // Start the server
 app.listen(PORT, () => {

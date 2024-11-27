@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import InputField from  "./components/inputField.jsx";
 import DisplayCard from "./components/card.jsx";
-
+import Navbar from './components/navbar';
 
 
 
@@ -12,6 +12,8 @@ const App = () => {
   const [welcomeMSG, setMSG] = useState("loading..."); 
   const [cardData,setCardData] = useState([]);
   const [storeData, setStoreData] = useState();
+  //this one is given to all the card components, so that they know to hide their "add" button when its a collection of cards from the db and not the API.
+  const [isCollection, setIsCollection] = useState(false);
     
   //functions for components to use
 
@@ -28,6 +30,7 @@ const App = () => {
        console.log(error);
      })
      .finally(function () {
+      setIsCollection(false);
      
    })}
    //sends card data to server
@@ -36,6 +39,18 @@ const App = () => {
     setStoreData(dataObject);
   }
 
+  //gets all the cards from the personal database
+  async function getCollection(){
+    await axios.get('http://localhost:5000/getcards')
+    .then(function (response) {
+      setCardData(response?.data || []); //so the question mark (response?.data) makes it return le false if it doesnt have a .data param...
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .finally(function () {
+      setIsCollection(true)
+  })} 
 
   //--------------------routes----------------------//
 
@@ -65,14 +80,22 @@ const App = () => {
   }, [storeData]);
 
 
-
   return (
     <div>
       <h1>MY CARD DATABASE</h1>
       <p>{welcomeMSG}</p>
+      <Navbar displayCollection={getCollection}/>
       <InputField onSubmit={getData}/>
       <div class="cardHolder">
-      {cardData.length > 0 ? cardData.map((card,index)=>{return <DisplayCard key={index} cardid={card.id} name ={card.name} imgURL={card.imageUrl} clickFunc={sendData}/>}): <p>loading...</p>}
+      {cardData.length > 0 ? cardData.map((card,index)=>
+          {return <DisplayCard 
+            key={index} 
+            cardid={card.id} 
+            displayButons={isCollection} 
+            name ={card.name} 
+            imgURL={card?.imageUrl || card.link} // again using that '?' to make the query return either .imageUrl and if that doesnt exist .link!!! 
+            clickFunc={sendData}/>
+          }): <p>loading...</p>}
       </div>
     </div>
   );
