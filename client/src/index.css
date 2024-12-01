@@ -6,6 +6,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.card{
+  position: relative;
+}
+
+/* this hs the counter in the black circle that keeps track of the amount of cards there are of each*/
+.counterbox{
+  height: 30px;
+  width: 30px;
+  background-color: black;
+  border: 10px solid black;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  /* for the counter <p> element */
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  font-size: 2rem ;    
+}
+/* parent div for all the card items*/
 .cardHolder{  
   position: absolute;
   right: 0;left: 0;
@@ -19,7 +41,7 @@ body {
   align-items: center;
 }
 
-
+/* top of page black box */
 .navbar{
   background-color: black;
 }

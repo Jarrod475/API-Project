@@ -110,6 +110,7 @@ const App = () => {
             cardid={card.id} 
             displayButons={isCollection} 
             name ={card.name} 
+            count = {card.count}
             imgURL={card?.imageUrl || card.link} // again using that '?' to make the query return either .imageUrl and if that doesnt exist .link!!! 
             clickFunc={sendData}
             deleteFunc={deleteData}/>

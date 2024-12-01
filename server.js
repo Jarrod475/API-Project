@@ -29,24 +29,38 @@ async function readData()
 {
   const data = await db.query("SELECT * FROM mycards");
   let items = data.rows;
-  console.log(items);
   return items;
 }
 
-//write data to database
-function writeData(newCard)
+//write data to database by first checking if their is a record already with that data. if so it increments the count. otherwise it just makes a new record.
+async function writeData(newCard)
 {
-  db.query('INSERT INTO mycards (id,name,link)  VALUES ($1,$2,$3)',[newCard.id,newCard.name,newCard.imgLink]);
+
+  try{
+   await db.query(`INSERT INTO mycards (id, name, link, count) VALUES ($1, $2, $3, 1)`, [newCard.id, newCard.name, newCard.imgLink]);
+  }catch(err){
+   await db.query(`UPDATE mycards SET count = count + 1 WHERE id = $1`,[newCard.id]);
+    console.log("WE CAUGHT AN ERROR ", err);
+  }  
   console.log("new card added to database");  
 }
+
+
 //delete card with given ID
 function deleteData(id){
   db.query('DELETE FROM mycards WHERE id=$1',[id]);
   console.log("card deleted from DB with ID :",id);
 }
+// reduces the card count by one then returns the amount left over.
+async function reduceCard(id){
+  await db.query('UPDATE mycards SET count = count - 1 WHERE id = $1 ',[id]);
+  await db.query('DELETE FROM mycards WHERE count < 1');
+}
+
 
 // Mock data
 const item =  "Welcome!";
+
 
 //    ----routes-----
 
@@ -60,7 +74,6 @@ app.post("/addcard" , (req,res)=>{
   let data =  req;
   writeData(data.body);
   res.send("card saved succesfully!");
-  console.log("recieving data from client:", data.body);
 });
 // Route to get all cards from DB
 app.get("/collection", async(req,res)=>{
@@ -70,8 +83,8 @@ app.get("/collection", async(req,res)=>{
 
  // Route to delete a card with given ID from DB
 app.delete("/collection", async(req,res)=>{
-  await deleteData(req.query.id);
-  res.send("card succesfully deleted");
+  await reduceCard(req.query.id);
+  res.send("card deleted succesfully");
 });
 
 // Start the server
