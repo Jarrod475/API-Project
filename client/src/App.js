@@ -12,6 +12,8 @@ const App = () => {
   const [welcomeMSG, setMSG] = useState("loading..."); 
   const [cardData,setCardData] = useState([]);
   const [storeData, setStoreData] = useState();
+  //this one is for the input field. makign it visible or not
+  const [isInputVisible,setInputVisibility] = useState(true);
   //this one is given to all the card components, so that they know to hide their "add" button when its a collection of cards from the db and not the API.
   const [isCollection, setIsCollection] = useState(false);
     
@@ -58,6 +60,8 @@ const App = () => {
 
   //gets all the cards from the personal database
   async function getCollection(){
+    //this makes the inputfield invisible
+    setInputVisibility(false);
     await axios.get('http://localhost:5000/collection')
     .then(function (response) {
       setCardData(response?.data || []); //so the question mark (response?.data) makes it return le false if it doesnt have a .data param...
@@ -68,6 +72,12 @@ const App = () => {
     .finally(function () {
       setIsCollection(true)
   })} 
+
+  //display the input field for card searching via API!
+  function displayInputField() {
+    setInputVisibility(true);
+    console.log("im changing@@")
+  }
 
   //--------------------routes----------------------//
 
@@ -100,10 +110,10 @@ const App = () => {
   return (
     <div>
       <h1>MY CARD DATABASE</h1>
-      <p>{welcomeMSG}</p>
-      <Navbar displayCollection={getCollection}/>
-      <InputField onSubmit={getData}/>
-      <div class="cardHolder">
+      <p className="notificationtext">{welcomeMSG}</p>
+      <Navbar displayInputField={displayInputField} displayCollection={getCollection}/>
+      <InputField isVisible={isInputVisible} onSubmit={getData}/>
+      <div className="cardHolder">
       {cardData.length > 0 ? cardData.map((card,index)=>
           {return <DisplayCard 
             key={index} 

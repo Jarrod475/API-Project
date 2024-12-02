@@ -6,8 +6,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+h1{
+  text-align: center  ;
+}
+
+
 .card{
   position: relative;
+  width: 265px;
+  height: 400px;
 }
 
 /* this hs the counter in the black circle that keeps track of the amount of cards there are of each*/
@@ -28,12 +36,12 @@ body {
   font-size: 2rem ;    
 }
 /* parent div for all the card items*/
-.cardHolder{  
+.cardHolder{ 
   position: absolute;
   right: 0;left: 0;
   margin-left: 50px;
   margin-top: 50px;
-  gap: 10px ;
+  gap: 50px ;
   display: grid;
   grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
   grid-template-rows: 0.25fr ;
@@ -44,9 +52,42 @@ body {
 /* top of page black box */
 .navbar{
   background-color: black;
+  border: 10px solid black;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* buttons in black box navbar*/
+.navbutton{
+  font-family: "Roboto Mono", monospace;  
+  background: white;
+  box-shadow: black 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.notificationtext{
+  text-align: center;
+  color: blue;
+}
+
+

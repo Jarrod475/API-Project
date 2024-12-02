@@ -65,8 +65,8 @@ function InputField(props){
 
     
     
-    return(
-        <div>
+    return(<div>
+        {props.isVisible ?<div>
             <p>Subtype (vampire, warrior, etc.)</p>
             <input name="subtypes" onChange={editData} type="text" />
             <p>card name</p>
@@ -77,6 +77,7 @@ function InputField(props){
             <button onClick={clearColours}>reset colour choices</button>
             <br/>
             <button onClick={()=>{props.onSubmit(queryData)}}>Search</button>
+        </div> : <div></div>}
         </div>
     )
 }
